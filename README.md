@@ -10,4 +10,6 @@ On Basic Data Structures
 
 Algorithms
 
+### Credits
+
 Course provided by Programación ATS on Youtube
