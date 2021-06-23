@@ -8,7 +8,7 @@ On Basic Data Structures
 
 ### Next Up 
 
-Algorithms
+95. Programación en C++ || Pilas || Concepto de Pila (Stack)
 
 ### Credits
 
