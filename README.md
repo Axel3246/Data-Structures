@@ -4,11 +4,11 @@ Learning Data Structures
 
 ### Status 
 
-On Basic Data Structures
+Learning Stacks
 
-### Next Up (24/06/2021)
+### Next Up (25/06/2021)
 
-95. Programación en C++ || Pilas || Concepto de Pila (Stack)
+98. Programación en C++ || Pilas || Ejercicio - Insertar y quitar elementos de una pila
 
 ### Credits
 
