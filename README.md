@@ -4,11 +4,11 @@ Learning Data Structures
 
 ### Status 
 
-Learning Stacks
+Learning Queues
 
-### Next Up (25/06/2021)
+### Next Up (26/06/2021)
 
-98. Programación en C++ || Pilas || Ejercicio - Insertar y quitar elementos de una pila
+99. Programación en C++ || Colas || Concepto de Cola (QUEUES)
 
 ### Credits
 
