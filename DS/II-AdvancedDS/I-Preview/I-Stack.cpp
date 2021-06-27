@@ -16,7 +16,7 @@ struct Node // !Los stack utilizan nodos para apuntar a los elementos siguientes
 
 };
 
-// *Function to add Node
+// *Function to add Stack
 
 void addStack(Node *&stack, int dato) // *Se pasa el apuntador y el dato para el nodo
 {                                // *Función protoripo para agregar un nuevo nodo
@@ -26,7 +26,7 @@ void addStack(Node *&stack, int dato) // *Se pasa el apuntador y el dato para el
     stack = new_node;            //!P4: Cambiar el valor del apuntado
 }
 
-// *Function to delete Node
+// *Function to deleteStack
 
 void deleteStack(Node *&stack, int &dato) // *Se pasa el apuntador y el dato por referencia
 {
