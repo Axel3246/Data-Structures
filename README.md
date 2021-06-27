@@ -8,7 +8,7 @@ Learning Queues
 
 ### Next Up (26/06/2021)
 
-99. Programación en C++ || Colas || Concepto de Cola (QUEUES)
+102. Programación en C++ || Colas || Ejercicio - Insertar y eliminar elementos de una cola (queues)
 
 ### Credits
 
