@@ -4,11 +4,11 @@ Learning Data Structures
 
 ### Status 
 
-Learning Queues
+Learning Linked Lists
 
-### Next Up (28/06/2021)
+### Next Up (30/06/2021)
 
-102. Programación en C++ || Colas || Ejercicio - Insertar y eliminar elementos de una cola (queues)
+103. Programación en C++ || Listas || Concepto de Lista Enlazada (Linked Lists)
 
 ### Credits
 
