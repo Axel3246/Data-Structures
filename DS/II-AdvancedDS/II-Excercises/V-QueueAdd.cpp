@@ -5,7 +5,7 @@ using namespace std;
 
 // *Structure for Node
 
-struct Node // !Los stack utilizan nodos para apuntar a los elementos siguientes, constan de:
+struct Node // !Las queue utilizan nodos para apuntar a los elementos siguientes, constan de:
 {
     int data;   // !Un dato
     Node *next; // !Un apuntador
