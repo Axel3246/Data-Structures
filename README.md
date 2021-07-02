@@ -8,7 +8,7 @@ Learning Linked Lists
 
 ### Next Up (30/06/2021)
 
-103. Programación en C++ || Listas || Concepto de Lista Enlazada (Linked Lists)
+107. Programación en C++ || Listas || Eliminar un elemento de la lista enlazada
 
 ### Credits
 
