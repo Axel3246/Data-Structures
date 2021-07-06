@@ -4,11 +4,11 @@ Learning Data Structures
 
 ### Status 
 
-Learning Linked Lists
+Learning Binary Trees
 
-### Next Up (30/06/2021)
+### Next Up
 
-107. Programación en C++ || Listas || Eliminar un elemento de la lista enlazada
+113. Programación en C++ || Árboles || Insertar nodos en un árbol binario de búsqueda ABB
 
 ### Credits
 
