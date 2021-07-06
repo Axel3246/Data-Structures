@@ -9,9 +9,8 @@ using namespace std;
 
 struct Node // !Las linked list tambien utilizan nodos para apuntar a los elementos siguientes, constan de:
 {
-    int data; // !Un dato
+    int data;   // !Un dato
     Node *next; // !Un apuntador
-
 };
 
 // *Function to add a List (sorted)
@@ -29,7 +28,7 @@ void addList(Node *&lista, int n)
         aux1 = aux1->next;
     }
     if (lista == aux1) //!Elemento al inicio de la lista (principio)
-    { 
+    {
         lista = nuevo_node;
     }
     else //!Se entra al while
@@ -49,7 +48,7 @@ void addList(Node *&lista, int n)
     Node *aux1 = lista; //! aux1 empieza en NULL como lista
     // *Insertar elementos a la lista
     if (lista == aux1) //!Elemento al inicio de la lista (principio)
-    { 
+    {
         lista = nuevo_node;
     }
     nuevo_node->next = aux1;
@@ -103,7 +102,7 @@ void searchList(Node *lista, int esearch)
     bool elementFound = false;
     int i = 0;
 
-    while ((lista != NULL)) 
+    while ((lista != NULL))
     {
         if (lista->data == esearch)
         {
@@ -121,4 +120,53 @@ void searchList(Node *lista, int esearch)
     {
         cout << "No se encontró el elemento " << esearch << " en la lista" << endl;
     }
+}
+
+// *Function to delete an element (ONLY ONE - FIRST ELEMENT FOUND (DOESN'T CHECK FOR DUPES))
+
+void dListElement(Node *&lista, int esearch)
+{
+    if (lista != NULL)
+    { // !Verificacion de lista (no) vacia
+        //!Punteros Esenciales
+        Node *aux_delete;
+        Node *anterior = NULL;
+        //!Igualacion del puntero auxiliar para el recorrido de la lista
+        aux_delete = lista;
+        //!Recorrer la lista
+        while ((aux_delete != NULL) && (aux_delete->data != esearch))
+        {
+            anterior = aux_delete;
+            aux_delete = aux_delete->next;
+        }
+
+        if (aux_delete == NULL)
+        { // !Elemento no encontrado
+            cout << "El elemento no existe" << endl;
+        }
+        else if (anterior == NULL)
+        { // !Element encontrado en el Primer Nodo
+            lista = lista->next;
+            delete aux_delete;
+        }
+        else
+        { // !Elemento en la lista, pero no el primer Nodo
+            anterior->next = aux_delete->next;
+            delete aux_delete;
+        }
+    }
+}
+
+// *Function to delete Linked List (All of it)
+
+void deleteLinkedList(Node *&lista, int &delement)
+{
+    //!P1: Crear un nodo auxiliar e igualarlo a lista
+    Node *aux = lista;
+    //!P2: Definir el valor al nodo auxiliar
+    delement = aux->data;
+    //!P3: Pasar lista al siguiente nodo
+    lista = aux->next;
+    //!P4: Eliminar aux
+    delete aux;
 }
