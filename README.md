@@ -8,7 +8,7 @@ Learning Binary Trees
 
 ### Next Up
 
-113. Programación en C++ || Árboles || Insertar nodos en un árbol binario de búsqueda ABB
+114. Programación en C++ || Árboles || Mostrar el árbol completo
 
 ### Credits
 
