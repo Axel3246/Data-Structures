@@ -3,6 +3,8 @@
 #include <iostream>
 #include <string.h>
 
+using namespace std;
+
 // *Node Structure for a Binary Tree
 
 struct Node 
@@ -53,3 +55,63 @@ void insert(Node *&arbol, int n)
 
 // *Funcion para mostrar un arbol binario
 
+void showTree(Node *arbol, int contador)
+{
+
+    //!Si el arbol esta vacio
+
+    if (arbol == NULL)
+    {
+        return;
+    }
+    else
+    {
+        showTree(arbol->der, contador + 1); //*Se empieza con el lado derecho del arbol
+        for (int i = 0; i < contador; i++)  //*Separacion de caracteres
+            cout << "   ";
+    }
+    cout << arbol->data << endl; // *Impresion del dato del nodo
+    showTree(arbol->izq, contador + 1);//*Ahora es el turno de imprimir el lado izquierdo del arbol
+}
+
+//*Funcion para buscar un elemento en el arbol binario
+
+bool searchNode(Node *arbol, int n)
+{
+
+    //!Si el arbol esta vacio (Caso 1)
+    if (arbol == NULL)
+    {
+        return false; // *El elemento no ha sido encontrado
+    }
+    else if (arbol->data == n)
+    { //*Si encontramos el elemento (en la raiz)
+        return true;
+    }
+    else if (n < arbol->data)
+    {
+        return searchNode(arbol->izq, n); //*Dependiendo del numero a buscar, nos inclinaremos hacia ese lado del arbol
+    }
+    else
+    {
+        return searchNode(arbol->der, n); //*Dependiendo del numero a buscar, nos inclinaremos hacia ese lado del arbol
+    }
+}
+
+// *Funcion para recorrido en PreOrden (direccion y por subramas)
+
+void preOrden(Node *arbol)
+{
+
+    //*Se debe conoer si el arbol esta vacio, para eso sirve este primer condicional
+    if (arbol == NULL)
+    {
+        return;
+    }
+    else
+    { //*Este else indica que el arbol no esta vacio
+        cout << arbol->data;
+        preOrden(arbol->izq); //?RECORRE EL LADO IZQUIERDO
+        preOrden(arbol->der); //?RECORRE EL LADO DERECHO
+    }
+}
