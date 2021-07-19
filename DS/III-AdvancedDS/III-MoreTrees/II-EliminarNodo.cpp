@@ -4,42 +4,28 @@
 
 using namespace std;
 
-//* El recorrido PreOrden, recorre un arbol desde la raiz, siguiendo despues la rama izquierda y, finalmente, la derecha
-//* Para eso, hay que utilizar la recursividad en cada nodo, empezando desde la raiz
-
-//TODO: 1. Visitar la raiz
-//TODO: 2. Atravesar el la rama izquierda (toda la subrama)
-//TODO: 3. Atravesar la rama derecha (toda la subrama)
+//* Para eliminar un Nodo,  es recomendable que cada nodo recuerde quien es su padre, para esto, debemos modificar el programa
 
 // *Node Structure for a Binary Tree
 
 struct Node
 {
-    int data;  // !Un dato
-    Node *der; // !Un apuntador al hijo der (si hay)
-    Node *izq; // !Un apuntador al hijo izq (si hay)
+    int data;
+    Node *der;
+    Node *izq;
+    Node *padre; //! Esta linea nos guardara el nodo padre de cada nodo
 };
 
-// *Creacion de nodo para arbol binario
-
-Node *createNode(int n)
-{
-    Node *new_node = new Node();
-
-    new_node->data = n;
-    new_node->der = NULL;
-    new_node->izq = NULL;
-
-    return new_node;
-}
-
-// *Prototipos
+//*Prototipos
 
 void menu();
-void insert(Node *&arbol, int n);
+Node *createNode(int n, Node *padre);          //! A esta funcion le pasaremos ahora, como extra, el nodo padre
+void insert(Node *&arbol, int n, Node *padre); //!A esta funcion tambien se debe de pasarle el nodo padre
 void showTree(Node *arbol, int contador);
 bool searchNode(Node *arbol, int n);
 void preOrden(Node *arbol);
+void eliminate(Node *arbol, int n); // !funcion para recorrer el arbol y encontrar el nodo
+void eliminateNode(Node *eliminar); // !Funcion para eliminar el nodo
 Node *arbol = NULL; //! Variabe
 
 int main()
@@ -70,7 +56,7 @@ void menu()
             int dato;
             cout << "Numero: ";
             cin >> dato;
-            insert(arbol, dato);
+            insert(arbol, dato, NULL); // ?Como no sabemos quien es el padre, simplemente ponemos NULL
             break;
 
         case 2:
@@ -102,15 +88,27 @@ void menu()
     } while (opcion != 5);
 }
 
+Node *createNode(int n, Node *padre) //! Asi quedaria la funcion para crear un nuevo nodo
+{
+    Node *new_node = new Node();
+
+    new_node->data = n;
+    new_node->der = NULL;
+    new_node->izq = NULL;
+    new_node->padre = padre; //!Le asignamos el padre al nuevo nodo creado
+
+    return new_node;
+}
+
 // !Funcion para insertar un nodo al arbol
 // ! El arbol puede estar vacio o con nodos
 
-void insert(Node *&arbol, int n)
+void insert(Node *&arbol, int n, Node *padre)
 {
 
     if (arbol == NULL)
     {
-        Node *new_node = createNode(n);
+        Node *new_node = createNode(n, padre); //! Indicamos quien es el padre del nuevo nodo creado
         arbol = new_node;
     }
     else
@@ -118,11 +116,11 @@ void insert(Node *&arbol, int n)
         int nodeVal = arbol->data; //!Obtenemos el valor de la raiz del arbol
         if (n < nodeVal)
         {
-            insert(arbol->izq, n); // !Si n es menor a la raiz lo acomodamos a la izquierda
+            insert(arbol->izq, n, padre); // !Si n es menor a la raiz lo acomodamos a la izquierda, indicamos quien es el padre
         }
         else
         {
-            insert(arbol->der, n); // !Si n es mayor a la raiz lo acomodamos a la derecha
+            insert(arbol->der, n, padre); // !Si n es mayor a la raiz lo acomodamos a la derecha, indicamos quien es el padre
         }
     }
 }
@@ -189,4 +187,29 @@ void preOrden(Node *arbol)
         preOrden(arbol->der); //?RECORRE EL LADO DERECHO
     }
 }
+
+//! Funcion para iterar el arbol y encontrar un nodo para eliminar
+
+/* --PARTE 1-- */
+
+void eliminate(Node *arbol, int n)
+{
+    if(arbol == NULL){ //*Si el arbol esta vacio no tengo nada que eliminar, entonces solo retorno
+        return;
+    }
+    else if(n < arbol ->data){ // *Si el valor es menor, buscar por la izquierda
+        eliminate(arbol->izq,n);
+    }
+    else if(n > arbol ->data){ // *Si el valor es mayor, buscar por la derecha
+        eliminate(arbol->der,n);
+    }
+    else{ //* Si se encuentra el valor se llama a la funcion
+        eliminateNode(arbol);
+    }
+}
+
+//! Funcion para eliminar un nodo
+
+/* --PARTE 2-- */
+
 
