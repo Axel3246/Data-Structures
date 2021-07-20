@@ -24,9 +24,11 @@ void insert(Node *&arbol, int n, Node *padre); //!A esta funcion tambien se debe
 void showTree(Node *arbol, int contador);
 bool searchNode(Node *arbol, int n);
 void preOrden(Node *arbol);
-void eliminate(Node *arbol, int n); // !funcion para recorrer el arbol y encontrar el nodo
-void eliminateNode(Node *n_delete); // !Funcion para eliminar el nodo
-Node *minimo(Node *arbol); // !Funcion para encontrar el minimo a la hora de eliminar un nodo
+void eliminate(Node *arbol, int n);            // !Funcion para recorrer el arbol y encontrar el nodo
+void eliminateNode(Node *n_delete);            // !Funcion para eliminar el nodo
+Node *minimo(Node *arbol);                     // !Funcion para encontrar el minimo a la hora de eliminar un nodo
+void reemplazar(Node *arbol, Node *nuevoNodo); // !Funcion para reemplazar el nodo cuando solo se tiene un solo hijo
+void destruirNode(Node *node);                 // !Funcion para quitar un nodo en caso de que solo tenga un hijo y se quiera eliminar
 Node *arbol = NULL;
 
 int main()
@@ -195,16 +197,20 @@ void preOrden(Node *arbol)
 
 void eliminate(Node *arbol, int n)
 {
-    if(arbol == NULL){ //*Si el arbol esta vacio no tengo nada que eliminar, entonces solo retorno
+    if (arbol == NULL)
+    { //*Si el arbol esta vacio no tengo nada que eliminar, entonces solo retorno
         return;
     }
-    else if(n < arbol ->data){ // *Si el valor es menor, buscar por la izquierda
-        eliminate(arbol->izq,n);
+    else if (n < arbol->data)
+    { // *Si el valor es menor, buscar por la izquierda
+        eliminate(arbol->izq, n);
     }
-    else if(n > arbol ->data){ // *Si el valor es mayor, buscar por la derecha
-        eliminate(arbol->der,n);
+    else if (n > arbol->data)
+    { // *Si el valor es mayor, buscar por la derecha
+        eliminate(arbol->der, n);
     }
-    else{ //* Si se encuentra el valor se llama a la funcion
+    else
+    { //* Si se encuentra el valor se llama a la funcion
         eliminateNode(arbol);
     }
 }
@@ -213,16 +219,54 @@ void eliminate(Node *arbol, int n)
 
 //! Funcion para determinar el Nodo mas izquierdo posible
 
-Node *minimo(Node *arbol){
-    if (arbol == NULL){ //*Si el arbol esta vacio le retornamos un NULL 
+Node *minimo(Node *arbol)
+{
+    if (arbol == NULL)
+    { //*Si el arbol esta vacio le retornamos un NULL
         return NULL;
     }
-    else if (arbol->izq){ // *Si tiene hijo izquierdo
+    else if (arbol->izq)
+    {                              // *Si tiene hijo izquierdo
         return minimo(arbol->izq); //*buscamos la parte mas izquierda posible
     }
-    else{ // *si no tiene hijo izquierdo retornamos el mismo nodo
+    else
+    { // *si no tiene hijo izquierdo retornamos el mismo nodo
         return arbol;
     }
+}
+
+//! Funcion para reemplazar un nodo
+
+/* --PARTE 3-- */
+
+void reemplazar(Node *arbol, Node *nuevoNodo)
+{
+    if (arbol->padre) //! Si el valor tiene padre (si el nodo cuenta con un padre)
+    {
+        // ? a arbol->padre hay que asignarle su nuevo hijo
+        if (arbol->data = arbol->padre->izq->data) // *en caso de que sea un hijo izquierdo y couerde con el nodo a eliminar
+        {
+            arbol->padre->izq = nuevoNodo;
+        }
+        else if (arbol->data = arbol->padre->der->data) // *en caso de que sea un hijo derecho y concuerde con el nodo a eliminar
+        {
+            arbol->padre->der = nuevoNodo;
+        }
+    }
+    if (nuevoNodo)
+    {
+        // ? se proede a asignarle el nuevo padre al nodo que reemplazara al eliminado
+        nuevoNodo->padre = arbol->padre;
+    }
+}
+
+//! Funcion para destruir un nodo
+
+void destruirNode(Node *node)
+{
+    node->izq = NULL; // *le quitamos el hijo izquierdo
+    node->der = NULL; // *le quitamos el hijo derecho
+    delete node;      // *finalmente, eliminamos el nodo
 }
 
 //! Funcion para eliminar un nodo
@@ -232,19 +276,33 @@ Node *minimo(Node *arbol){
 // TODO: Debemos tener en cuenta si el nodo tiene dos hijos
 // ?La eliminacion depende de lo anterior
 
-void eliminateNode(Node *n_delete){
+void eliminateNode(Node *n_delete)
+{
 
-    // *Caso 1: Nodo con dos subarboles hijos (2 hijos
+    // *Caso 1: Nodo con dos subarboles hijos (2 hijos)
     // *Para esto recorremos un lugar hacia la derecha y vamos lo mas a la izquierda posible para reemplazar el nodo a eliminar
 
-    if(n_delete->izq && n_delete->der){ // *Comprobando que el nodo tiene dos hijos
-        Node *menor = minimo(n_delete->der); 
+    if (n_delete->izq && n_delete->der)
+    { // *Comprobando que el nodo tiene dos hijos
+        Node *menor = minimo(n_delete->der);
         n_delete->data = menor->data; // *Asignamos el menor valor encontrado
-        eliminateNode(menor); // *se elimina el nodo al que se usara para reemplazar
+        eliminateNode(menor);         // *se elimina el nodo al que se usara para reemplazar
     }
 
     /* --PARTE 3-- */
 
-    
-}
+    // *Caso 2: Nodo con solo un hijo
+    // *Lo que hay que hacer es que el hijo sera el nuevo nodo por el que se reemplazara, es decir, el hijo toma su lugar
 
+    else if (n_delete->izq) //*si el nodo tiene el hijo izquierdo
+    {
+        reemplazar(n_delete, n_delete->izq);
+        destruirNode(n_delete);
+    }
+
+    else if (n_delete->der) //*si el nodo tiene el hijo derecho
+    {
+        reemplazar(n_delete, n_delete->der);
+        destruirNode(n_delete);
+    }
+}
