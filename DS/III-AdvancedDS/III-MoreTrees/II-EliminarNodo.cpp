@@ -305,4 +305,6 @@ void eliminateNode(Node *n_delete)
         reemplazar(n_delete, n_delete->der);
         destruirNode(n_delete);
     }
+
+    /* --PARTE 4-- */
 }
