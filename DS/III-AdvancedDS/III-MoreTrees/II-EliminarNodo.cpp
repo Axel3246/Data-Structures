@@ -25,8 +25,9 @@ void showTree(Node *arbol, int contador);
 bool searchNode(Node *arbol, int n);
 void preOrden(Node *arbol);
 void eliminate(Node *arbol, int n); // !funcion para recorrer el arbol y encontrar el nodo
-void eliminateNode(Node *eliminar); // !Funcion para eliminar el nodo
-Node *arbol = NULL; //! Variabe
+void eliminateNode(Node *n_delete); // !Funcion para eliminar el nodo
+Node *minimo(Node *arbol); // !Funcion para encontrar el minimo a la hora de eliminar un nodo
+Node *arbol = NULL;
 
 int main()
 {
@@ -188,9 +189,9 @@ void preOrden(Node *arbol)
     }
 }
 
-//! Funcion para iterar el arbol y encontrar un nodo para eliminar
-
 /* --PARTE 1-- */
+
+//! Funcion para iterar el arbol y encontrar un nodo para eliminar
 
 void eliminate(Node *arbol, int n)
 {
@@ -208,8 +209,42 @@ void eliminate(Node *arbol, int n)
     }
 }
 
-//! Funcion para eliminar un nodo
-
 /* --PARTE 2-- */
 
+//! Funcion para determinar el Nodo mas izquierdo posible
+
+Node *minimo(Node *arbol){
+    if (arbol == NULL){ //*Si el arbol esta vacio le retornamos un NULL 
+        return NULL;
+    }
+    else if (arbol->izq){ // *Si tiene hijo izquierdo
+        return minimo(arbol->izq); //*buscamos la parte mas izquierda posible
+    }
+    else{ // *si no tiene hijo izquierdo retornamos el mismo nodo
+        return arbol;
+    }
+}
+
+//! Funcion para eliminar un nodo
+
+// TODO: Debemos tener en cuenta si el nodo es hoja (no tiee hijos)
+// TODO: Debemos tener en cuenta si el nodo tiene un hijo izquierdo o derecho
+// TODO: Debemos tener en cuenta si el nodo tiene dos hijos
+// ?La eliminacion depende de lo anterior
+
+void eliminateNode(Node *n_delete){
+
+    // *Caso 1: Nodo con dos subarboles hijos (2 hijos
+    // *Para esto recorremos un lugar hacia la derecha y vamos lo mas a la izquierda posible para reemplazar el nodo a eliminar
+
+    if(n_delete->izq && n_delete->der){ // *Comprobando que el nodo tiene dos hijos
+        Node *menor = minimo(n_delete->der); 
+        n_delete->data = menor->data; // *Asignamos el menor valor encontrado
+        eliminateNode(menor); // *se elimina el nodo al que se usara para reemplazar
+    }
+
+    /* --PARTE 3-- */
+
+    
+}
 
