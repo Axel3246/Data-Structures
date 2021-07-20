@@ -8,7 +8,8 @@ Learning Binary Trees
 
 ### Next Up
 
-119. Programación en C++ || Árboles || Eliminar un nodo del árbol - parte 1
+122. Programación en C++ || Árboles || Eliminar un nodo del árbol - parte 4
+
 
 ### Credits
 
