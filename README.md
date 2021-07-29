@@ -1,15 +1,14 @@
 # Data-Structures
 
-Learning Data Structures
+Learning Algorithms
 
 ### Status 
 
-Learning Binary Trees
+Learning Bubble Sort
 
 ### Next Up
 
-122. Programación en C++ || Árboles || Eliminar un nodo del árbol - parte 4
-
+50. Programación en C++ || Ordenamientos || Método Burbuja
 
 ### Credits
 
