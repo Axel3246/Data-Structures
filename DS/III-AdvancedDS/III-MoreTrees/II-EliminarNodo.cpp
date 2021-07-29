@@ -24,6 +24,8 @@ void insert(Node *&arbol, int n, Node *padre); //!A esta funcion tambien se debe
 void showTree(Node *arbol, int contador);
 bool searchNode(Node *arbol, int n);
 void preOrden(Node *arbol);
+void inOrden(Node *arbol);
+void postOrden(Node *arbol);
 void eliminate(Node *arbol, int n);            // !Funcion para recorrer el arbol y encontrar el nodo
 void eliminateNode(Node *n_delete);            // !Funcion para eliminar el nodo
 Node *minimo(Node *arbol);                     // !Funcion para encontrar el minimo a la hora de eliminar un nodo
@@ -47,7 +49,10 @@ void menu()
         cout << "2. Mostrar Arbol" << endl;
         cout << "3. Buscar Elemento" << endl;
         cout << "4. Recorrer en PreOrden" << endl;
-        cout << "5. Salir" << endl;
+        cout << "5. Recorrer en InOrden" << endl;
+        cout << "6. Recorrer en PostOrden" << endl;
+        cout << "7. Eliminar un Nodo" << endl;
+        cout << "8. Salir" << endl;
         cout << "Opcion -> ";
         cin >> opcion;
 
@@ -86,9 +91,28 @@ void menu()
             cout << endl;
             preOrden(arbol);
             break;
+
+        case 5:
+
+            cout << endl;
+            inOrden(arbol);
+            break;
+
+        case 6:
+
+            cout << endl;
+            postOrden(arbol);
+            break;
+
+        case 7:
+
+            cout << "Digite el nodo a eliminar: ";
+            cin >> dato;
+            eliminate(arbol, dato);
+            break;
         }
 
-    } while (opcion != 5);
+    } while (opcion != 8);
 }
 
 Node *createNode(int n, Node *padre) //! Asi quedaria la funcion para crear un nuevo nodo
@@ -119,11 +143,11 @@ void insert(Node *&arbol, int n, Node *padre)
         int nodeVal = arbol->data; //!Obtenemos el valor de la raiz del arbol
         if (n < nodeVal)
         {
-            insert(arbol->izq, n, padre); // !Si n es menor a la raiz lo acomodamos a la izquierda, indicamos quien es el padre
+            insert(arbol->izq, n, arbol); // !Si n es menor a la raiz lo acomodamos a la izquierda, indicamos quien es el padre
         }
         else
         {
-            insert(arbol->der, n, padre); // !Si n es mayor a la raiz lo acomodamos a la derecha, indicamos quien es el padre
+            insert(arbol->der, n, arbol); // !Si n es mayor a la raiz lo acomodamos a la derecha, indicamos quien es el padre
         }
     }
 }
@@ -191,6 +215,37 @@ void preOrden(Node *arbol)
     }
 }
 
+// !Funcion para recorrido en profundidad - InOrden
+
+void inOrden(Node *arbol)
+{
+    if (arbol == NULL)
+    {
+        return;
+    }
+    else
+    {
+        inOrden(arbol->izq);
+        cout << arbol->data;
+        inOrden(arbol->der);
+    }
+}
+//! Funcion para recorrido en profundidad - PostOrden
+
+void postOrden(Node *arbol)
+{
+    if (arbol == NULL)
+    {
+        return;
+    }
+    else
+    {
+        postOrden(arbol->izq);
+        postOrden(arbol->der);
+        cout << arbol->data;
+    }
+}
+
 /* --PARTE 1-- */
 
 //! Funcion para iterar el arbol y encontrar un nodo para eliminar
@@ -244,11 +299,11 @@ void reemplazar(Node *arbol, Node *nuevoNodo)
     if (arbol->padre) //! Si el valor tiene padre (si el nodo cuenta con un padre)
     {
         // ? a arbol->padre hay que asignarle su nuevo hijo
-        if (arbol->data = arbol->padre->izq->data) // *en caso de que sea un hijo izquierdo y couerde con el nodo a eliminar
+        if (arbol->data == arbol->padre->izq->data) // *en caso de que sea un hijo izquierdo y couerde con el nodo a eliminar
         {
             arbol->padre->izq = nuevoNodo;
         }
-        else if (arbol->data = arbol->padre->der->data) // *en caso de que sea un hijo derecho y concuerde con el nodo a eliminar
+        else if (arbol->data == arbol->padre->der->data) // *en caso de que sea un hijo derecho y concuerde con el nodo a eliminar
         {
             arbol->padre->der = nuevoNodo;
         }
@@ -307,4 +362,10 @@ void eliminateNode(Node *n_delete)
     }
 
     /* --PARTE 4-- */
+    // *Ultimo caso: Nodo sin Hijos
+    else
+    {
+        reemplazar(n_delete, NULL);
+        destruirNode(n_delete);
+    }
 }
