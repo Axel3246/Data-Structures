@@ -4,11 +4,11 @@ Learning Algorithms
 
 ### Status 
 
-Learning Bubble Sort
+Learning Insertion Sort
 
 ### Next Up
 
-50. Programación en C++ || Ordenamientos || Método Burbuja
+51. Programación en C++ || Ordenamientos || Ordenamiento por Inserción
 
 ### Credits
 
