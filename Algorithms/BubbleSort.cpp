@@ -4,7 +4,7 @@
 //* Es un algoritmo sencillo de ordenamiento. Funciona revisando cada elemento de la lista que va ser ordenada siguiente, intercambiandolos
 //* de posicion si estan en el orden equivocado. Es necesario revisar la lista varias veces hasta estar claro que no se necesitan mas intercambios
 
-//* Big O: Generalmente es de O(n^2), aunque puede disminuir en algunos casos especiales
+//* Big O: Generalmente es de O(n^2).
 
 #include <iostream>
 #include <vector>
