@@ -4,11 +4,11 @@ Learning Algorithms
 
 ### Status 
 
-Learning Insertion Sort
+Learning Selection Sort
 
 ### Next Up
 
-51. Programación en C++ || Ordenamientos || Ordenamiento por Inserción
+52. Programación en C++ || Ordenamientos || Ordenamiento por Selección
 
 ### Credits
 
