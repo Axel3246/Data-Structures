@@ -4,11 +4,12 @@ Learning Algorithms
 
 ### Status 
 
-Learning Selection Sort
+Learning Linear Search
 
 ### Next Up
 
-52. Programación en C++ || Ordenamientos || Ordenamiento por Selección
+53. Programación en C++ || Búsquedas || Búsqueda Secuencial en un arreglo
+
 
 ### Credits
 
