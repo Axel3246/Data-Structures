@@ -4,13 +4,12 @@ Learning Algorithms
 
 ### Status 
 
-Learning Binary Search
+Learning Recursive Merge Sort
 
 ### Next Up
 
-54. Programación en C++ || Búsquedas || Búsqueda Binaria en un arreglo
-
+Merge Sort C++ | Ordenamiento por mezcla C++ | Algoritmos de ordenamiento | Forma recursiva
 
 ### Credits
 
-Course provided by Programación ATS on Youtube
+Course provided by Codigo 404 on Youtube
