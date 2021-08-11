@@ -4,11 +4,11 @@ Learning Algorithms
 
 ### Status 
 
-Learning Linear Search
+Learning Binary Search
 
 ### Next Up
 
-53. Programación en C++ || Búsquedas || Búsqueda Secuencial en un arreglo
+54. Programación en C++ || Búsquedas || Búsqueda Binaria en un arreglo
 
 
 ### Credits
