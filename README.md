@@ -1,17 +1,14 @@
 # Data-Structures
 
-Learning Algorithms
+Using algorithms and DS
 
 ### Status 
 
-Learning Recursive Merge Sort
-
-### Next Up
-
-Merge Sort C++ | Ordenamiento por mezcla C++ | Algoritmos de ordenamiento | Forma recursiva
-Ordenamiento por Inserción C++ | Algoritmos de Ordenamiento | Codigo y Debugging
-Recursive Selection Sort
+Working on LeetCode Problems
 
 ### Credits
 
+Course provided by ProgramacionATS on Youtube
 Course provided by Codigo 404 on Youtube
+
+Documentation provided by GeeksforGeeks
