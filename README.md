@@ -6,6 +6,9 @@ Using algorithms and DS
 
 Working on LeetCode Problems
 
+Roman to Int
+Spiral Matrix
+
 ### Credits
 
 Course provided by ProgramacionATS on Youtube
