@@ -1,6 +1,6 @@
 
 /*
-Given a roman numeral, convert it to an integer.
+Given a roman numeral, convert it to an integer. WIP
 */
 #include <iostream>
 #include <string>
