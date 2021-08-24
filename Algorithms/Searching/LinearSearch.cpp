@@ -1,7 +1,7 @@
 
 // * Linear Search
 
-//* Buscar si un dato determinado existe o no en un array de n elementos
+//* Buscar si un dato determinado existe o no en un array de n elementos. O(1) Mejor Caso, O(n), peor caso
 
 #include <iostream>
 #include <vector>
