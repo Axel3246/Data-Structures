@@ -1,6 +1,7 @@
 // * Binary Search
 
 //* Se requiere que el arreglo este ordenado ascendentemente. Es mas eficiente y rapida que el Linear Search
+// * Orden: O(log(n))
 
 #include <iostream>
 #include <vector>
