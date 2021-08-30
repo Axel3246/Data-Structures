@@ -65,7 +65,7 @@ int sortIntercambio(vector<int> &vec)
     int comp = 0, temp;
     for (int i = 0; i < vec.size() - 1; i++)
     {
-        for (int j = i + 1; j < vec.size() - 1; j++)
+        for (int j = i + 1; j < vec.size(); j++)
         {
             comp++; // Medir las comparaciones
             if (vec[i] > vec[j])
