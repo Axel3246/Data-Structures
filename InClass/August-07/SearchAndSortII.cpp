@@ -102,7 +102,7 @@ int sortBurbuja(vector<int> &vec)
     return comp;
 }
 
-// * O(n^2)
+// ? O(n^2)
 int sortSeleccion(vector<int> &vec)
 {
     int indiceMenor, temp, comp = 0;
@@ -127,6 +127,29 @@ int sortSeleccion(vector<int> &vec)
     return comp;
 }
 
+// ? O(n) , O(n^2)
+int sortInsercion(vector<int> &vec)
+{
+    int temp, cont = 0;
+    for (int i = 1; i < vec.size(); i++)
+    { // Tenemos n-1 pasadas
+        int j = i;
+        temp = vec[j];
+        while (j > 0 && temp < vec[j - 1]) // Realizando el desplazamiento
+        {
+            cont++;
+            vec[j] = vec[j - 1];
+            j--;
+        }
+        if (j > 0)
+        {
+            cont++;
+        }
+        vec[j] = temp;
+    }
+    return cont;
+}
+
 int main()
 {
     int n, dato, datoBusca;
@@ -134,6 +157,7 @@ int main()
     // vec1 == Ordenar con Intercambio
     // vec2 == Ordenar con Búrbuja
     // vec3 == Ordenar con seleccion menor
+    // vec4 == Ordenar con Insercion
     vector<int> vec1, vec2, vec3, vec4; // Construiste el vector con 0 casillas
     for (int i = 0; i < n; i++)
     {
@@ -165,27 +189,41 @@ int main()
 		cantCompBS = posBusSecuencial+1;
 	}
 */
+    // ? Secuencial
     cout << "posBusSecuencial: " << posBusSecuencial << endl;
     cout << "cantCompBS:	   " << cantCompBS << endl;
     cout << "==================" << endl;
     cout << "Datos Ordenados Intercambio:  ";
 
+    // ? Intercambio
     int compIntercambio = sortIntercambio(vec1);
     print(vec1);
     cout << "Comparaciones Intercambio: " << compIntercambio << endl;
     cout << "==================" << endl;
     cout << "Datos Ordenados Búrbuja:  ";
 
+    // ? Burbuja
     int compBurbuja = sortBurbuja(vec2);
     print(vec2);
     cout << "Comparaciones Búrbuja: " << compBurbuja << endl;
 
+    // ? Seleccion
     cout << "==================" << endl;
     cout << "Datos Ordenados Seleccion Menor: ";
     int compSeleccion = sortSeleccion(vec3);
     print(vec3);
-    cout << "cantCompBB:	   " << compSeleccion << endl;
+    cout << "cantCompSeleccion:	   " << compSeleccion << endl;
     cout << "==================" << endl;
+
+    // ? Insercion
+    cout << "==================" << endl;
+    cout << "Datos Ordenados Insercion: ";
+    int compInsercion = sortInsercion(vec4);
+    print(vec4);
+    cout << "cantCompInsercion:	   " << compInsercion << endl;
+    cout << "==================" << endl;
+
+    // ? Merge Sort
 
     //	sort(vec.begin(), vec.end());
     //	print(vec);
