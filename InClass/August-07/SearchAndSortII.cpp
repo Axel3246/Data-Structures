@@ -150,15 +150,65 @@ int sortInsercion(vector<int> &vec)
     return cont;
 }
 
+int merge(vector<int> &vec, int inicio, int mitad, int fin, int &comp)
+{
+    vector<int> aux(vec.size());
+    int i = inicio, j = mitad + 1, k = inicio;
+    while (i <= mitad && j <= fin)
+    {
+        comp++;
+        if (vec[i] < vec[j])
+        {
+            aux[k++] = vec[i++];
+        }
+        else
+        {
+            aux[k++] = vec[j++];
+        }
+    }
+    if (i > mitad)
+    {
+        for (int a = j; a <= fin; a++)
+        {
+            aux[k++] = vec[a];
+        }
+    }
+    else
+    {
+        for (int a = i; a <= mitad; a++)
+        {
+            aux[k++] = vec[a];
+        }
+    }
+    for (int a = inicio; a <= fin; a++)
+    {
+        vec[a] = aux[a];
+    }
+    return comp;
+}
+
+// ? Peor O(nlogn), mejor O(nlog)
+void mergeSort(vector<int> &vec, int inicio, int fin, int &comp)
+{
+    if (inicio < fin)
+    {
+        int mitad = (inicio + fin) / 2;
+        mergeSort(vec, inicio, mitad, comp);
+        mergeSort(vec, mitad + 1, fin, comp);
+        merge(vec, inicio, mitad, fin, comp);
+    }
+}
+
 int main()
 {
     int n, dato, datoBusca;
     cin >> n;
     // vec1 == Ordenar con Intercambio
     // vec2 == Ordenar con Búrbuja
-    // vec3 == Ordenar con seleccion menor
+    // vec3 == Ordenar con Seleccion menor
     // vec4 == Ordenar con Insercion
-    vector<int> vec1, vec2, vec3, vec4; // Construiste el vector con 0 casillas
+    // vec5 == Ordenar con Merge
+    vector<int> vec1, vec2, vec3, vec4, vec5; // Construiste el vector con 0 casillas
     for (int i = 0; i < n; i++)
     {
         cin >> dato;
@@ -166,6 +216,7 @@ int main()
         vec2.push_back(dato); // Empujando al final una nueva casilla
         vec3.push_back(dato); // Empujando al final una nueva casilla
         vec4.push_back(dato); // Empujando al final una nueva casilla
+        vec5.push_back(dato);
     }
     /*	vector<int> vec(n);  // Construiste el vector con n casillas
 	for (int i=0; i<n; i++){
@@ -224,6 +275,14 @@ int main()
     cout << "==================" << endl;
 
     // ? Merge Sort
+
+    cout << "==================" << endl;
+    cout << "Datos Ordenados Merge: ";
+    int compMerge = 0;
+    mergeSort(vec5, 0, n - 1, compMerge);
+    print(vec5);
+    cout << "cantCompMerge:	   " << compMerge << endl;
+    cout << "==================" << endl;
 
     //	sort(vec.begin(), vec.end());
     //	print(vec);
