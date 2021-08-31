@@ -11,24 +11,26 @@ numero de comparaciones y la posicion de el dato de un arreglo al ser ordenado
 
 using namespace std;
 
-void print(vector<int> &vect)
+/*
+void prlong(vector<long> &vect)
 {
 
-    for (int i = 0; i < vect.size(); i++)
+    for (long i = 0; i < vect.size(); i++)
     {
 
         cout << vect[i] << " ";
     }
     cout << endl;
 }
+*/
 
 // ! Funciones de Busqueda
 
 // * Funcion que busca un dato por medio de la busqueda secuencial y regresa el numero de comparaciones su posicion
 // ? Complejidad: Mejor caso: O(1), Peor caso: O(n)
-int busquedaSecuencial(vector<int> vect, int query)
+long busquedaSecuencial(vector<long> vect, long query)
 {
-    for (int i = 0; i < vect.size(); i++)
+    for (long i = 0; i < vect.size(); i++)
     {
         if (vect[i] == query)
         {
@@ -41,11 +43,11 @@ int busquedaSecuencial(vector<int> vect, int query)
 
 // * Funcion que busca un dato por medio de la busqueda binaria y regresa el numero de comparaciones su posicion
 // ? Complejidad: Mejor caso: O(1), Peor caso: O(log(n))
-int binarySearch(vector<int> vect, int query, int &comp)
+long binarySearch(vector<long> vect, long query, long &comp)
 {
     comp = 0;
 
-    int inicio = 0, fin = vect.size() - 1, mitad;
+    long inicio = 0, fin = vect.size() - 1, mitad;
     while (inicio <= fin)
     {
         mitad = (inicio + fin) / 2;
@@ -68,14 +70,14 @@ int binarySearch(vector<int> vect, int query, int &comp)
 
 // ! Funciones de Ordenamiento
 
-// * Funcion que ordena un array / vector por el metodo de intercambio y regresa las comparaciones (mas el vector ordenado)
+// * Funcion que ordena un array / vector por el metodo de longercambio y regresa las comparaciones (mas el vector ordenado)
 // ? Complejidad: O(n^2)
-int sortIntercambio(vector<int> &vec)
+long sortIntercambio(vector<long> &vec)
 {
-    int comp = 0, temp;
-    for (int i = 0; i < vec.size() - 1; i++)
+    long comp = 0, temp;
+    for (long i = 0; i < vec.size() - 1; i++)
     {
-        for (int j = i + 1; j < vec.size(); j++)
+        for (long j = i + 1; j < vec.size(); j++)
         {
             comp++; // Medir las comparaciones
             if (vec[i] > vec[j])
@@ -91,14 +93,14 @@ int sortIntercambio(vector<int> &vec)
 
 // * Funcion que ordena un array / vector por el metodo burbuja y regresa las comparaciones (mas el vector ordenado)
 // ? Complejidad: Mejor caso: O(n), Peor caso: O(n^2)
-int bubbleSort(vector<int> &vec)
+long bubbleSort(vector<long> &vec)
 {
-    bool interruptor = true;
-    int temp, comp = 0;
-    for (int pasada = 0; pasada < vec.size() && interruptor; pasada++)
+    bool longerruptor = true;
+    long temp, comp = 0;
+    for (long pasada = 0; pasada < vec.size() && longerruptor; pasada++)
     {
-        interruptor = false;
-        for (int j = 0; j < vec.size() - 1 - pasada; j++)
+        longerruptor = false;
+        for (long j = 0; j < vec.size() - 1 - pasada; j++)
         {
             comp++;
             if (vec[j + 1] < vec[j])
@@ -106,7 +108,7 @@ int bubbleSort(vector<int> &vec)
                 temp = vec[j];
                 vec[j] = vec[j + 1];
                 vec[j + 1] = temp;
-                interruptor = true;
+                longerruptor = true;
             }
         }
     }
@@ -115,14 +117,14 @@ int bubbleSort(vector<int> &vec)
 
 // * Funcion que ordena un array / vector por el metodo mergeSort y regresa las comparaciones (mas el vector ordenado)
 // !!!!!!!!!! Complejidad: Posiblemente O(n)
-int merge(vector<int> &vec, int inicio, int mitad, int fin, int &comp)
+long merge(vector<long> &vec, long inicio, long mitad, long fin, long &comp)
 {
-    vector<int> aux(vec.size());
-    int i = inicio, j = mitad + 1, k = inicio;
+    vector<long> aux(vec.size());
+    long i = inicio, j = mitad + 1, k = inicio;
     while (i <= mitad && j <= fin)
     {
         comp++;
-        if (vec[i] < vec[j])
+        if (vec[i] <= vec[j])
         {
             aux[k++] = vec[i++];
         }
@@ -133,19 +135,19 @@ int merge(vector<int> &vec, int inicio, int mitad, int fin, int &comp)
     }
     if (i > mitad)
     {
-        for (int a = j; a <= fin; a++)
+        for (long a = j; a <= fin; a++)
         {
             aux[k++] = vec[a];
         }
     }
     else
     {
-        for (int a = i; a <= mitad; a++)
+        for (long a = i; a <= mitad; a++)
         {
             aux[k++] = vec[a];
         }
     }
-    for (int a = inicio; a <= fin; a++)
+    for (long a = inicio; a <= fin; a++)
     {
         vec[a] = aux[a];
     }
@@ -154,11 +156,11 @@ int merge(vector<int> &vec, int inicio, int mitad, int fin, int &comp)
 
 // * Funcion que ordena y divide en subarrays por recursividad para llevar a cabo mergeSort
 // ? Complejidad: Mejor caso: O(nlog(n)), Peor caso: O(nlog(n))
-void mergeSort(vector<int> &vec, int inicio, int fin, int &comp)
+void mergeSort(vector<long> &vec, long inicio, long fin, long &comp)
 {
     if (inicio < fin)
     {
-        int mitad = (inicio + fin) / 2;
+        long mitad = (inicio + fin) / 2;
         mergeSort(vec, inicio, mitad, comp);
         mergeSort(vec, mitad + 1, fin, comp);
         merge(vec, inicio, mitad, fin, comp);
@@ -167,15 +169,15 @@ void mergeSort(vector<int> &vec, int inicio, int fin, int &comp)
 
 int main()
 {
-    int nums, n, cont, queries, query;
+    long nums, n, cont, queries, query;
     cin >> nums;
 
-    // * vect1 == Ordenar con Intercambio
+    // * vect1 == Ordenar con longercambio
     // * vect2 == Ordenar con Búrbuja
     // * vect3 == Ordenar con Merge
-    vector<int> vect1, vect2, vect3;
+    vector<long> vect1, vect2, vect3;
 
-    for (int i = 0; i < nums; i++)
+    for (long i = 0; i < nums; i++)
     {
         cin >> n;
         vect1.push_back(n);
@@ -184,30 +186,30 @@ int main()
     }
 
     
-    // * sortIntercambio
-    int compIntercambio = sortIntercambio(vect1);
-    //print(vect1);
+    // * sortlongercambio
+    long complongercambio = sortIntercambio(vect1);
+    //prlong(vect1);
 
     // * bubbleSort
-    int compBurbuja = bubbleSort(vect2);
-    //print(vect2);
+    long compBurbuja = bubbleSort(vect2);
+    //prlong(vect2);
 
     // * mergeSort
-    int compMerge = 0;
+    long compMerge = 0;
     mergeSort(vect3, 0, nums - 1, compMerge);
-    //print(vect3);
-    cout << compIntercambio << " " << compBurbuja << " " << compMerge << endl;
+    //prlong(vect3);
+    cout << complongercambio << " " << compBurbuja << " " << compMerge << endl;
 
     cin >> queries;
 
-    for (int j = 0; j < queries; j++)
+    for (long j = 0; j < queries; j++)
     {
         cin >> query;
-        int cantCompBB = 0;
-        int posBusBinaria = binarySearch(vect1, query, cantCompBB);
-        int posBusSecuencial = busquedaSecuencial(vect1, query);
-        int cantCompBS = (posBusSecuencial == -1 ? vect1.size() : posBusSecuencial + 1);
+        long cantCompBB = 0;
+        long posBusBinaria = binarySearch(vect1, query, cantCompBB);
+        long posBusSecuencial = busquedaSecuencial(vect1, query);
+        long cantCompBS = (posBusSecuencial == -1 ? vect1.size() : posBusSecuencial + 1);
 
-        cout << posBusBinaria << " " << cantCompBS << " " << cantCompBB << endl;
+        cout << posBusSecuencial << " " << cantCompBS << " " << cantCompBB << endl;
     }
 }
