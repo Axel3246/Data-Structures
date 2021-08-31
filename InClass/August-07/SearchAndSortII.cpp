@@ -157,7 +157,7 @@ int merge(vector<int> &vec, int inicio, int mitad, int fin, int &comp)
     while (i <= mitad && j <= fin)
     {
         comp++;
-        if (vec[i] < vec[j])
+        if (vec[i] <= vec[j])
         {
             aux[k++] = vec[i++];
         }
