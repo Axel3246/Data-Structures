@@ -199,6 +199,42 @@ void mergeSort(vector<int> &vec, int inicio, int fin, int &comp)
     }
 }
 
+// ? O(n)
+void particion(vector<int> &vec, int inicio, int final, int &pivote, int &comp)
+{
+    int elemPivote = vec[inicio];
+    int j = inicio; // * Ultima posicion de los menores
+    int aux;
+    for (int i = inicio + 1; i <= final; i++)   
+    {
+        comp++;
+        if (vec[i] < elemPivote)
+        {
+            j++;
+            aux = vec[i];
+            vec[i] = vec[j];
+            vec[j] = aux;
+        }
+    }
+    pivote = j; // * Posicionar al pivote en su posicion final
+    aux = vec[pivote];
+    vec[pivote] = vec[inicio];
+    vec[inicio] = aux;
+}
+
+// ? Mejor: O(nlogn), peor O(n^2)
+void quickSort(vector<int> &vec, int inicio, int final, int &comp)
+{
+
+    if (inicio < final)
+    {
+        int pivote;
+        particion(vec, inicio, final, pivote, comp); // * Ordeno a los menores
+        quickSort(vec, inicio, pivote - 1, comp);    // * Ordeno a los mayores
+        quickSort(vec, pivote + 1, final, comp);
+    }
+}
+
 int main()
 {
     int n, dato, datoBusca;
@@ -208,7 +244,8 @@ int main()
     // vec3 == Ordenar con Seleccion menor
     // vec4 == Ordenar con Insercion
     // vec5 == Ordenar con Merge
-    vector<int> vec1, vec2, vec3, vec4, vec5; // Construiste el vector con 0 casillas
+    // vec6 == Ordenar con QuickSort
+    vector<int> vec1, vec2, vec3, vec4, vec5, vec6; // Construiste el vector con 0 casillas
     for (int i = 0; i < n; i++)
     {
         cin >> dato;
@@ -217,6 +254,7 @@ int main()
         vec3.push_back(dato); // Empujando al final una nueva casilla
         vec4.push_back(dato); // Empujando al final una nueva casilla
         vec5.push_back(dato);
+        vec6.push_back(dato);
     }
     /*	vector<int> vec(n);  // Construiste el vector con n casillas
 	for (int i=0; i<n; i++){
@@ -282,6 +320,15 @@ int main()
     mergeSort(vec5, 0, n - 1, compMerge);
     print(vec5);
     cout << "cantCompMerge:	   " << compMerge << endl;
+    cout << "==================" << endl;
+
+    // ? QuickSort
+    cout << "==================" << endl;
+    cout << "Datos Ordenados Quick: ";
+    int compQuick = 0;
+    quickSort(vec5, 0, n - 1, compQuick);
+    print(vec5);
+    cout << "cantCompQuick:	   " << compQuick << endl;
     cout << "==================" << endl;
 
     //	sort(vec.begin(), vec.end());
