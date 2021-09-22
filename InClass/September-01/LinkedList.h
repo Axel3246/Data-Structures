@@ -36,7 +36,7 @@ LinkedList<T>::~LinkedList()
 
 template <class T>
 // ? Complejidad: O(1)
-void LinkedList<T>::addFirst()
+void LinkedList<T>::addFirst(T data)
 {
     // * Se crea un nuevo nodo, tomando en cuenta que
     // * head es de tipo nodo
