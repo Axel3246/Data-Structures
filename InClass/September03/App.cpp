@@ -75,6 +75,33 @@ int main(){
 	miLista2.print();
 	cout << "--------------------" << endl;
 	// Se invoca automáticamente al destructor
+	cout << "Reversed" << endl;
+	miLista2.reverse();
+	miLista2.print();
+	cout << "--------------------" << endl;
+	cout << "Shift" << endl;
+	//miLista2.shift(1);
+	//miLista2.print();
+	cout << "--------------------" << endl;
+	cout << "Operator==" << endl;
+	LinkedList<int> miLista3, miLista4;
+	miLista3.addFirst(100);
+	miLista3.addFirst(200);
+	miLista4.addFirst(100);
+	miLista4.addFirst(200);
+	if(miLista3 == miLista4){
+		cout << "Son iguales" << endl;
+	}
+	else{
+		cout << "No son iguales" << endl;
+	}
+	cout << "--------------------" << endl;
+	cout << "OPerator+=" << endl;
+	LinkedList<int> miLista5;
+	miLista5.addFirst(99);
+	miLista5+=miLista3;
+	miLista5.print();
+	cout << "--------------------" << endl;
 }
 
 

@@ -7,6 +7,7 @@ class LinkedList
     // * Atributos publicos
 public:
     LinkedList();
+    LinkedList(const LinkedList<T> &otra);
     ~LinkedList();
     void addFirst(T data);
     void addLast(T data);
@@ -22,7 +23,9 @@ public:
     void change(int pos1, int pos2);
     void reverse();
     void shift(int n);
-    bool operator==(LinkedList<T> *list);
+    bool operator==(const LinkedList<T> &otra);
+    void operator+=(const LinkedList<T> &otra);
+    void operator=(const LinkedList<T> &otra);
     void print();
 
     // * Atributos privados
@@ -110,7 +113,7 @@ bool LinkedList<T>::add(T data, int pos)
 
 template <class T>
 // * Método que elimina el primer nodo de la lista
-// ? Complejidad: O(1)
+// ? Complejidad: O(1
 void LinkedList<T>::deleteFirst()
 {
     // * Si hay algo lo elimina, y si no, no hace nada
@@ -202,7 +205,7 @@ bool LinkedList<T>::isEmpty()
 }
 
 template <class T>
-// * Método que regresa el tamaño de la lista
+// * Método que regresa el tamaño de la lista enlazada
 // ? Complejidad: O(1)
 int LinkedList<T>::getSize()
 {
@@ -216,12 +219,11 @@ T LinkedList<T>::get(int pos)
 {
     Node<T> *curr = head;
 
-    // * Se recorren pos - 1 veces
     for (int i = 1; i <= pos; i++)
     {
         curr = curr->getNext();
     }
-    return curr->getData(); // * se regresa el datol
+    return curr->getData();
 }
 
 template <class T>
@@ -232,14 +234,55 @@ T LinkedList<T>::set(T data, int pos)
 {
 
     Node<T> *curr = head;
-    // * Se recorren pos - 1 posiciones (i empieza en 1)
     for (int i = 1; i <= pos; i++)
     {
         curr = curr->getNext();
     }
-    T dataAux = curr->getData(); // *obtenemos el dato que se desea cambiar
-    curr->setData(data);         // * se cambia
-    return dataAux;              // * se regresa el dato anterior
+    T dataAux = curr->getData();
+    curr->setData(data);
+    return dataAux;
+}
+
+template <class T>
+// * Metodo que intercamba los datos de dos nodos
+// ? Complejidad: O(n)
+void LinkedList<T>::change(int pos1, int pos2)
+{
+    if (pos1 != pos2)
+    {
+        int posMen = (pos1 < pos2) ? pos1 : pos2;
+        int posMay = (pos1 > pos2) ? pos1 : pos2;
+
+        Node<T> *curr1 = head;
+
+        for (int i = 1; i <= posMen; i++)
+        {
+            curr1 = curr1->getNext();
+        }
+        Node<T> *curr2 = curr1;
+
+        for (int i = 1; i <= (posMay - posMen); i++)
+        {
+            curr2 = curr2->getNext();
+        }
+
+        T dataAux = curr1->getData();
+        curr1->setData(curr2->getData());
+        curr2->setData(dataAux);
+    }
+}
+
+template <class T>
+// * Metodo que imprime la lista enlazada
+// ? Complejidad: O(1)
+void LinkedList<T>::print()
+{
+    Node<T> *curr = head;
+    while (curr != nullptr)
+    {
+        cout << curr->getData() << endl;
+        curr = curr->getNext();
+    }
 }
 
 template <class T>
@@ -247,7 +290,7 @@ template <class T>
 // ? Complejidad: O(n)
 void LinkedList<T>::reverse()
 {
-    if (size != 0)
+    if (size > 0)
     {
         // * curr apuntara a head como comienzo
         // * siguiente sera el sustituto de head->getNext()
@@ -270,74 +313,101 @@ void LinkedList<T>::reverse()
     }
 }
 
-
 template <class T>
-// * Método intercambia nodos n posiciones
+// * Método que recorre la lista n posiciones
 // ? Complejidad: O(n)
 void LinkedList<T>::shift(int n)
 {
-    if (size != 0)
+    if (size > 0)
     {
-        Node<T> *curr = head, *siguiente = nullptr, *aux = head;
-
-        // * Enlazamos la lista en una (sin null)
-        while (aux != nullptr)
+        Node<T> *curr = head, *curr2 = head, *fin = head;
+        int saltos = n % size;
+        if (saltos < 0)
         {
-            curr->getNext();
+            saltos = saltos + size;
         }
-        curr->setNext(head);
 
-        for(int i = 0; i < (size-n); i++){
-            aux = aux->getNext();
+        while (curr2->getNext() != nullptr)
+        {
+            curr2->getNext();
+            cout << "3" << endl;
         }
-        head = curr->getNext();
-        
+        cout << "3" << endl;
+        fin->setNext(head);
+
+        for (int j = 1; j < saltos; j++)
+        {
+            curr2->getNext();
+        }
+        head = curr2->getNext();
+        curr2->setNext(nullptr);
     }
 }
 
-
 template <class T>
-// * Método que verifica si dos listas son iguales
+// * Método que compara si dos listas son iguales
 // ? Complejidad: O(n)
-bool LinkedList<T>::operator==(LinkedList<T> *list){
-    Node<T> *curr1 = head;
-
+bool LinkedList<T>::operator==(const LinkedList<T> &otra)
+{
+    if (size == otra.size)
+    {
+        Node<T> *curr1 = head, *curr2 = otra.head;
+        for (int i = 0; i < size; i++)
+        {
+            if (curr1->getData() != curr2->getData())
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    return false;
 }
 
-template<class T>
-// * Metodo que intercambia los datos
-// ? Complejidad: O(n)
-void LinkedList<T>::change(int pos1, int pos2){
+template <class T> // ! FALTA COMPROBACION
+// * Metodo que agrega los valores de una lista a otra (al final) 
+void LinkedList<T>::operator+=(const LinkedList<T> &otra)
+{
+    // ! FALTA COMPROBAR QUE LA LISTA ESTE INSTANCIADA Y NODOS
+    
+        Node<T> *curr1 = head, *curr2 = otra.head;
 
-    if(pos1 != pos2){
-        
-        int posMen = (pos1 < pos2) ? pos1 : pos2;
-        int posMay = (pos1 > pos2) ? pos1 : pos2;
-
-        Node<T> *curr1 = head;
-        for (int i = 1; i<=posMen; i++){
+        // * Iteracion para llegar al final de la primera lista
+        while (curr1->getNext() != nullptr)
+        {
             curr1 = curr1->getNext();
         }
-        Node<T> *curr2 = curr1;
-        for (int i = 1; i<=(posMay-posMen); i++){
+        
+        cout << "Hola" << endl;
+        
+        // * Iteracion para agregar los nodos
+        while(curr2 != nullptr)
+        {
+            curr1->setNext(new Node<T>(curr2->getData()));
+            curr1 = curr1->getNext();
             curr2 = curr2->getNext();
+            size++;
         }
-        T dataAux = curr1->getData();
-        curr1->setData(curr2->getData());
-        curr2->setData(dataAux);
-    }
+
+        // * Se apunta de nuevo a nullptr
+        curr1->setNext(nullptr);
 }
 
 template <class T>
-// * Método que imprime la lista
-// ? Complejidad: O(1)
-void LinkedList<T>::print()
+void LinkedList<T>::operator=(const LinkedList<T> &otra)
+{
+    
+}
+
+template <class T>
+LinkedList<T>::LinkedList(const LinkedList<T> &otra)
 {
 
-    Node<T> *curr = head;
-    while (curr != nullptr)
-    {
-        cout << curr->getData() << endl;
-        curr = curr->getNext();
-    }
+    head = nullptr;
+    size = 0;
 }
+
+/*
+#include "LinkedList_2_1.h"
+#include "LinkedList_2_2.h"
+*/

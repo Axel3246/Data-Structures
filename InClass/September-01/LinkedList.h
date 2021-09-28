@@ -7,6 +7,7 @@ class LinkedList
     // * Atributos publicos
 public:
     LinkedList();
+    LinkedList(const LinkedList<T> &otra);
     ~LinkedList();
     void addFirst(T data);
     void addLast(T data);
@@ -19,7 +20,14 @@ public:
     int getSize();
     T get(int pos);
     T set(T data, int pos);
+    void change(int pos1, int pos2);
+    void reverse();
+    void shift(int n);
+    bool operator==(const LinkedList<T> &otra);
+    void operator+=(const LinkedList<T> &otra);
+    void operator=(const LinkedList<T> &otra);
     void print();
+    
 
     // * Atributos privados
 private:
@@ -224,11 +232,33 @@ T LinkedList<T>::set(T data, int pos)
     return dataAux;
 }
 
+template<class T>
+// ? Complejidad: O(n)
+void LinkedList<T>::change(int pos1, int pos2){
+
+    if(pos1 != pos2){
+        
+        int posMen = (pos1 < pos2) ? pos1 : pos2;
+        int posMay = (pos1 > pos2) ? pos1 : pos2;
+
+        Node<T> *curr1 = head;
+        for (int i = 1; i<=posMen; i++){
+            curr1 = curr1->getNext();
+        }
+        Node<T> *curr2 = curr1;
+        for (int i = 1; i<=(posMay-posMen); i++){
+            curr2 = curr2->getNext();
+        }
+        T dataAux = curr1->getData();
+        curr1->setData(curr2->getData());
+        curr2->setData(dataAux);
+    }
+}
+
 template <class T>
 // ? Complejidad: O(1)
 void LinkedList<T>::print()
 {
-
     Node<T> *curr = head;
     while (curr != nullptr)
     {
@@ -236,3 +266,79 @@ void LinkedList<T>::print()
         curr = curr->getNext();
     }
 }
+
+
+template <class T>
+// * Método que regresa la lista de forma inversa
+// ? Complejidad: O(n)
+void LinkedList<T>::reverse()
+{
+    if (size <= 0)
+    {
+        // * curr apuntara a head como comienzo
+        // * siguiente sera el sustituto de head->getNext()
+        // * aux sera el que ayudara a reversear los nodos
+        Node<T> *curr = head, *siguiente = nullptr, *aux = nullptr;
+        while (curr != nullptr)
+        {
+            // * Siguiente de head (curr)
+            siguiente = curr->getNext();
+            // * Se establece que el nodo de head ahora apunta a null
+            // * (y ahora cada nodo apuntara a su anterior)
+            curr->setNext(aux);
+            // * movemos una posicion a aux
+            aux = curr;
+            // * movemos una posicion a curr
+            curr = siguiente;
+        }
+        // * al estar linkeado al reves, se iguala head a aux
+        head = aux;
+    }
+}
+
+template <class T>
+// * Método que
+// ? Complejidad: O(n)
+void LinkedList<T>::shift(int n)
+{
+    if (size != 0)
+    {
+        Node<T> *curr = head, *curr2 = head, *fin = head;
+        int saltos = n % size;
+        if (saltos < 0)
+        {
+            saltos = saltos + size;
+        }
+        while(fin != nullptr){
+            fin->getNext();
+        }
+        fin->setNext(head);
+
+        for (int j = 0; j < saltos; j++){
+            curr2->getNext();
+        }
+        for(int i = 0; i < saltos; i++){
+            
+        }
+
+        curr2->setNext(nullptr);
+
+    }
+}
+
+template <class T>
+// * Método que compara si dos listas son iguales
+// ? Complejidad: O(n)
+bool LinkedList<T>::operator==(const LinkedList<T> &otra){
+
+    return true
+}
+
+
+
+
+
+/*
+#include "LinkedList_2_1.h"
+#include "LinkedList_2_2.h"
+*/
