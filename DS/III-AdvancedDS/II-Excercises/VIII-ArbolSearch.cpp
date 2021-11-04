@@ -106,6 +106,7 @@ void insert(Node *&arbol, int n)
         {
             insert(arbol->izq, n); // !Si n es menor a la raiz lo acomodamos a la izquierda
         }
+        
         else
         {
             insert(arbol->der, n); // !Si n es mayor a la raiz lo acomodamos a la derecha
